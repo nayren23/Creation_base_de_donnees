@@ -1,0 +1,99 @@
+/* -----------------------------------------------------------------------
+BASE de DONNEES : système de réservation
+Auteur : Rayan CHOUCHANE Yassine HAMIDI
+------------------------------------------------------------------------- */
+
+
+
+-connaitre toute les informations conscernant les client ayant un statut 'rerserve'
+select distinct * from clients join reservation using (adrcourriel) where statut = 'reserve';
+
+                adrcourriel                |     numtel     |    nom    |  prenom   |  datenais  |             adrpostale             | numreservation | datereserv |      classe       | prixtotal | statut  | codepostal
+-------------------------------------------+----------------+-----------+-----------+------------+------------------------------------+----------------+------------+-------------------+-----------+---------+------------
+ CosetteDuLin@dayrep.com                   | 01.92.35.46.43 | Cosette   | DuLin     | 1951-04-18 | 52, rue Saint Germain              |              5 | 2016-12-13 | Premiere Classe   |      2900 | reserve | 530-0000
+ CosetteDuLin@dayrep.com                   | 01.92.35.46.43 | Cosette   | DuLin     | 1951-04-18 | 52, rue Saint Germain              |             13 | 2021-02-19 | Premiere Classe   |      2900 | reserve | WC1B
+ KarelMargand@teleworm.us                  | 01.33.94.12.84 | Karel     | Margand   | 1940-11-15 | 94, rue Descartes                  |              6 | 2017-11-03 | Classe Economique |       620 | reserve | G2 1DU
+ KarelMargand@teleworm.us                  | 01.33.94.12.84 | Karel     | Margand   | 1940-11-15 | 94, rue Descartes                  |             19 | 2021-11-21 | Classe Economique |       620 | reserve | 13000
+ LeverettClement@armyspy.com               | 01.22.01.06.37 | Leverett  | Clement   | 1994-08-14 | 90, Rue Bonnet                     |             20 | 2018-04-14 | Premiere Classe   |      2900 | reserve | 75000
+ MartineGoudreau@armyspy.com               | 03.04.69.47.18 | Martine   | Goudreau  | 1965-01-24 | 40, boulevard Bryas                |              4 | 2015-04-21 | Classe Economique |       620 | reserve | 200000i
+ MartineGoudreau@armyspy.com               | 03.04.69.47.18 | Martine   | Goudreau  | 1965-01-24 | 40, boulevard Bryas                |             15 | 2019-10-02 | Classe Economique |       620 | reserve | 100-0000
+ Rayanchouchane@elbogoss.com               | 10.21.32.43.54 | Rayan     | Chouchane | 2003-07-23 | 10, avenue du Beau goss del cartel |              9 | 2020-07-17 | Classe Economique |       620 | reserve | 110000
+ Rayanchouchane@elbogoss.com               | 10.21.32.43.54 | Rayan     | Chouchane | 2003-07-23 | 10, avenue du Beau goss del cartel |             18 | 2020-12-21 | Premiere Classe   |      2900 | reserve | 530-0000
+ StephanieGousse@rhyta.com                 | 02.21.94.95.03 | Stephanie | Gousse    | 1983-01-12 | 10, avenue du Marechal Juin        |              1 | 2021-12-14 | Premiere Classe   |      2900 | reserve | 75000
+ TheophilePiedalue@rhyta.com               | 01.91.89.15.21 | Theophile | Piedalue  | 1956-10-29 | 85, place Stanislas                |              2 | 2022-01-12 | Premiere Classe   |      2900 | reserve | 910000
+ Yassinehamidi@elpatrondelcartel@cartel.fr | 06.12.13.14.15 | Yassine   | Hamidi    | 2003-03-13 | 20, rue du cartel italie           |              7 | 2019-04-25 | Premiere Classe   |      2900 | reserve | 75000
+
+
+
+- connaitre tous les vols de la compgnie avec comme code 'A5'
+select * from vols where codecompagnie = 'A5';
+
+ numvol | capacitesieges |   dateheuredepart   |  dateheurearrivee   | idaeroport | codecompagnie
+--------+----------------+---------------------+---------------------+------------+---------------
+      1 |            300 | 2020-04-02 12:00:00 | 2020-04-02 18:00:00 |          2 | A5
+      5 |            300 | 2020-08-02 18:00:00 | 2020-08-02 20:00:00 |         10 | A5
+      9 |            300 | 2020-12-02 17:00:00 | 2020-12-02 23:00:00 |          6 | A5
+     13 |            300 | 2020-04-02 12:00:00 | 2020-04-02 19:00:00 |          2 | A5
+     17 |            300 | 2020-08-02 02:00:00 | 2020-08-02 08:00:00 |          3 | A5
+
+
+
+-connaitre toutes les personnes ayant un voyage au japon et dans quel ville 
+select distinct * from clients join reservation using (adrcourriel) join ville using(codepostal) join pays using (numpays) where nompays = 'Japon';
+ 
+ numpays | codepostal |         adrcourriel          |     numtel     |    nom     |  prenom   |  datenais  |             adrpostale             | numreservation | datereserv |      classe       | prixtotal | statut  | nomville | nompays
+---------+------------+------------------------------+----------------+------------+-----------+------------+------------------------------------+----------------+------------+-------------------+-----------+---------+----------+---------
+       5 | 100-0000   | MartineGoudreau@armyspy.com  | 03.04.69.47.18 | Martine    | Goudreau  | 1965-01-24 | 40, boulevard Bryas                |             15 | 2019-10-02 | Classe Economique |       620 | reserve | Tokyo    | Japon
+       5 | 530-0000   | AntoinetteBourassa@rhyta.com | 04.59.43.61.86 | Antoinette | Bourassa  | 1969-09-03 | 46, rue Banaudon                   |             12 | 2021-03-16 | Classe Economique |       620 | annule  | Osaka    | Japon
+       5 | 530-0000   | CosetteDuLin@dayrep.com      | 01.92.35.46.43 | Cosette    | DuLin     | 1951-04-18 | 52, rue Saint Germain              |              5 | 2016-12-13 | Premiere Classe   |      2900 | reserve | Osaka    | Japon
+       5 | 530-0000   | Rayanchouchane@elbogoss.com  | 10.21.32.43.54 | Rayan      | Chouchane | 2003-07-23 | 10, avenue du Beau goss del cartel |             18 | 2020-12-21 | Premiere Classe   |      2900 | reserve | Osaka    | Japon
+
+
+
+-connaitre le nombre de reservation pour un pays pour n'importe quel statut de reservation regroupé par le groupe nom pays 
+select count(adrcourriel), nompays from clients join reservation using (adrcourriel) join ville using(codepostal) join pays using (numpays) group by nompays;
+ 
+ count |   nompays
+-------+--------------
+     1 | Tunisie
+     8 | France
+     2 | Colombie
+     2 | Chine
+     3 | Royaume-Unis
+     4 | Japon
+
+
+
+-connaitre le nombre de reservation pour un pays avec le statut 'reserve'
+select count(adrcourriel), nompays from clients join reservation using (adrcourriel) join ville using(codepostal) join pays using (numpays) where statut = 'reserve'group by nompays;
+ 
+ count |   nompays
+-------+--------------
+     1 | Chine
+     2 | Colombie
+     4 | France
+     3 | Japon
+     2 | Royaume-Unis
+
+
+
+-connaitre tous les aeroports desservis par la compagnie 'Air France'
+select * from aeroports join desservir using(idaeroport) join compagnie using(codecompagnie) where nomcompagnie = 'Air France';
+
+ codecompagnie | idaeroport | iata |                    nomaeroport                     | codepostal | nomcompagnie | numpays
+---------------+------------+------+----------------------------------------------------+------------+--------------+---------
+ A5            |          1 | CDG  | Aeroport de Paris-Charles de Gaulle                | 75000      | Air France   |       1
+ A5            |          5 | BEK  | Aeroport international de Pekin                    | 100000     | Air France   |       1
+ A5            |          8 | MAO  | Aeroport international de Manaus de Eduardo Gomes | 910000     | Air France   |       1
+
+
+
+-connaitre toutes les reservations que Yassine et Rayan on effectuer ordonnée par prenom
+select * from reservation join clients using(adrcourriel) where prenom = 'Rayan' or prenom = 'Yassine' order by prenom;
+
+                adrcourriel                | numreservation | datereserv |      classe       | prixtotal | statut  | codepostal |     numtel     | prenom  |    nom    |  datenais  |             adrpostale             | prenom
+-------------------------------------------+----------------+------------+-------------------+-----------+---------+------------+----------------+---------+-----------+------------+------------------------------------+---------
+ Rayanchouchane@elbogoss.com               |              9 | 2020-07-17 | Classe Economique |       620 | reserve | 110000     | 10.21.32.43.54 | Rayan   | Chouchane | 2003-07-23 | 10, avenue du Beau goss del cartel | Rayan
+ Rayanchouchane@elbogoss.com               |             18 | 2020-12-21 | Premiere Classe   |      2900 | reserve | 530-0000   | 10.21.32.43.54 | Rayan   | Chouchane | 2003-07-23 | 10, avenue du Beau goss del cartel | Rayan
+ Yassinehamidi@elpatrondelcartel@cartel.fr |              7 | 2019-04-25 | Premiere Classe   |      2900 | reserve | 75000      | 06.12.13.14.15 | Yassine | Hamidi    | 2003-03-13 | 20, rue du cartel italie           | Yassine
+ Yassinehamidi@elpatrondelcartel@cartel.fr |             17 | 2020-10-15 | Premiere Classe   |      2900 | annule  | 75000      | 06.12.13.14.15 | Yassine | Hamidi    | 2003-03-13 | 20, rue du cartel italie           | Yassine
